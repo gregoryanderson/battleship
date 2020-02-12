@@ -37,5 +37,26 @@ class CellTest<Minitest::Test
         assert_equal true, @cell.fired_upon?
     end
 
+    def test_method_render
+        @cruiser = Ship.new('Cruiser', 3)
+        @cell.place_ship(@cruiser)
+        assert_equal ".", @cell.render
+        @cell.fire_upon
+        assert_equal "H", @cell.render
+        @cell.fire_upon
+        @cell.fire_upon
+        assert_equal "X", @cell.render
+    end 
 
+    def test_method_render_no_ship
+        assert_equal ".", @cell.render
+        @cell.fire_upon 
+        assert_equal "M", @cell.render
+    end
+
+    def test_method_render_reveal
+        @cruiser = Ship.new("Cruiser", 3)
+        @cell.place_ship(@cruiser)
+        assert_equal "S", @cell.render(true)
+    end
 end
